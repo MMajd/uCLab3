@@ -11,6 +11,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include "adc/adc.h" 
 
 
 #define OUTPUT_PORT(_PORT)			_PORT = 0xFF
@@ -34,6 +35,7 @@
 #define MODE_THREE		3
 
 int mode_flag = MODE_ONE; 
+unsigned char adc_r_8 = 0;
 
 int main(void)
 {
@@ -53,9 +55,13 @@ int main(void)
 	SET_BIT(EIMSK, INT0);
 	sei(); 
 
+	adc_init(0);
+
 	int leds = 0;
 	int counter = 0; 
 		
+	unsigned char adc_r_8 = 0;
+
     while (1) 
     {
 		//PIND4 here is active low 
@@ -74,29 +80,36 @@ int main(void)
 				} 
 				
 			}
-			else if (mode_flag == MODE_THREE) {
-				//if button pressed change mode
-				//checking button is pressed code
-
+			else {
 				//change mode
 				mode_flag = MODE_ONE;
+				leds = 0;
+				counter = 8; 
 			}
 		}
 
 		if(mode_flag == MODE_ONE) {
-			if(counter > 7) counter = 0;
+			if(counter > 7) {
+				leds = 0;
+				counter = -1;
+			}
 			SET_BIT(leds, counter++);
 			PORTB = leds; 
 			_delay_ms(500); 
 		}
 		else if(mode_flag == MODE_TWO) {
-			if(counter < 0) counter = 7;
+			if(counter < 0) {
+				leds = 0; 
+				counter = 8;
+			}
 			SET_BIT(leds, counter--);
 			PORTB = leds;
 			_delay_ms(500); 
 		}
 		else {
-			//put adc input on portb
+			adc_r_8 = adc_read_8_bit(0);
+			PORTB = adc_r_8;
+			_delay_ms(500); 
 		}
     } // end of while loop 
 }
@@ -105,8 +118,15 @@ ISR(INT0_vect)
 {
 	//disable interrupts 
 	cli(); 
-	//set the input of the adc_pot to 8 lets output 
 
+	if (mode_flag != MODE_THREE) {
+		PORTB = 0; 
+		_delay_ms(500); 
+	}
+	
+	adc_r_8 = adc_read_8_bit(0);
+	PORTB = adc_r_8;
+	 
 	_delay_ms(500); 
 	mode_flag = MODE_THREE; 
 	//enable interrupts
