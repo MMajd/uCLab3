@@ -1,0 +1,384 @@
+
+Interrupt_Polling.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000002  00800100  000001de  00000252  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000001de  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  00000254  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000284  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000028  00000000  00000000  000002c0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000007bd  00000000  00000000  000002e8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000006c3  00000000  00000000  00000aa5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000347  00000000  00000000  00001168  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000050  00000000  00000000  000014b0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003bd  00000000  00000000  00001500  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000001c7  00000000  00000000  000018bd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000018  00000000  00000000  00001a84  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 cc 00 	jmp	0x198	; 0x198 <__vector_1>
+   8:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+   c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  10:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  14:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  18:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  1c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  20:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  24:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  28:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  2c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  30:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  34:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  38:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  3c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  40:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  44:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  48:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  4c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  50:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  54:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  58:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  5c:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  60:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+  64:	0c 94 49 00 	jmp	0x92	; 0x92 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	ee ed       	ldi	r30, 0xDE	; 222
+  7c:	f1 e0       	ldi	r31, 0x01	; 1
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+  84:	a2 30       	cpi	r26, 0x02	; 2
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
+  8a:	0e 94 4b 00 	call	0x96	; 0x96 <main>
+  8e:	0c 94 ed 00 	jmp	0x1da	; 0x1da <_exit>
+
+00000092 <__bad_interrupt>:
+  92:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000096 <main>:
+int mode_flag = MODE_ONE; 
+
+int main(void)
+{
+	//set all pins in port b to output
+	OUTPUT_PORT(DDRB); 
+  96:	8f ef       	ldi	r24, 0xFF	; 255
+  98:	84 b9       	out	0x04, r24	; 4
+			
+	//input pin 
+	RESET_BIT(DDRD, PORTD4);
+  9a:	54 98       	cbi	0x0a, 4	; 10
+
+	//choosing one mode of interrupts int pins 4 modes 
+	//Low level for INT0
+	//portd2
+	RESET_BIT(EICRA, ISC00);
+  9c:	e9 e6       	ldi	r30, 0x69	; 105
+  9e:	f0 e0       	ldi	r31, 0x00	; 0
+  a0:	80 81       	ld	r24, Z
+  a2:	8e 7f       	andi	r24, 0xFE	; 254
+  a4:	80 83       	st	Z, r24
+	RESET_BIT(EICRA, ISC01); 
+  a6:	80 81       	ld	r24, Z
+  a8:	8d 7f       	andi	r24, 0xFD	; 253
+  aa:	80 83       	st	Z, r24
+
+	//enabling interrupt request and global interrupt flag 
+	SET_BIT(EIMSK, INT0);
+  ac:	e8 9a       	sbi	0x1d, 0	; 29
+	sei(); 
+  ae:	78 94       	sei
+
+	int leds = 0;
+	int counter = 0; 
+  b0:	80 e0       	ldi	r24, 0x00	; 0
+  b2:	90 e0       	ldi	r25, 0x00	; 0
+
+	//enabling interrupt request and global interrupt flag 
+	SET_BIT(EIMSK, INT0);
+	sei(); 
+
+	int leds = 0;
+  b4:	40 e0       	ldi	r20, 0x00	; 0
+  b6:	50 e0       	ldi	r21, 0x00	; 0
+			PORTB = leds; 
+			_delay_ms(500); 
+		}
+		else if(mode_flag == MODE_TWO) {
+			if(counter < 0) counter = 7;
+			SET_BIT(leds, counter--);
+  b8:	61 e0       	ldi	r22, 0x01	; 1
+  ba:	70 e0       	ldi	r23, 0x00	; 0
+				mode_flag = MODE_ONE;
+			}
+		}
+
+		if(mode_flag == MODE_ONE) {
+			if(counter > 7) counter = 0;
+  bc:	f0 e0       	ldi	r31, 0x00	; 0
+  be:	e0 e0       	ldi	r30, 0x00	; 0
+			SET_BIT(leds, counter++);
+			PORTB = leds; 
+			_delay_ms(500); 
+		}
+		else if(mode_flag == MODE_TWO) {
+			if(counter < 0) counter = 7;
+  c0:	d7 e0       	ldi	r29, 0x07	; 7
+  c2:	c0 e0       	ldi	r28, 0x00	; 0
+		//PIND4 here is active low 
+		if(CHK_PIN_LOW(PIND, PIND4)) {
+			if(mode_flag < MODE_THREE) {
+				// toggle the mode from mode 2 to 1, or vise versa
+				if(mode_flag == MODE_ONE)  { 
+					mode_flag = MODE_TWO;
+  c4:	a2 e0       	ldi	r26, 0x02	; 2
+  c6:	b0 e0       	ldi	r27, 0x00	; 0
+	int counter = 0; 
+		
+    while (1) 
+    {
+		//PIND4 here is active low 
+		if(CHK_PIN_LOW(PIND, PIND4)) {
+  c8:	4c 99       	sbic	0x09, 4	; 9
+  ca:	24 c0       	rjmp	.+72     	; 0x114 <main+0x7e>
+			if(mode_flag < MODE_THREE) {
+  cc:	20 91 00 01 	lds	r18, 0x0100	; 0x800100 <__data_start>
+  d0:	30 91 01 01 	lds	r19, 0x0101	; 0x800101 <__data_start+0x1>
+  d4:	23 30       	cpi	r18, 0x03	; 3
+  d6:	31 05       	cpc	r19, r1
+  d8:	ac f4       	brge	.+42     	; 0x104 <main+0x6e>
+				// toggle the mode from mode 2 to 1, or vise versa
+				if(mode_flag == MODE_ONE)  { 
+  da:	21 30       	cpi	r18, 0x01	; 1
+  dc:	31 05       	cpc	r19, r1
+  de:	49 f4       	brne	.+18     	; 0xf2 <main+0x5c>
+					mode_flag = MODE_TWO;
+  e0:	b0 93 01 01 	sts	0x0101, r27	; 0x800101 <__data_start+0x1>
+  e4:	a0 93 00 01 	sts	0x0100, r26	; 0x800100 <__data_start>
+					leds = 0;
+  e8:	4f 2f       	mov	r20, r31
+  ea:	5e 2f       	mov	r21, r30
+			SET_BIT(leds, counter++);
+			PORTB = leds; 
+			_delay_ms(500); 
+		}
+		else if(mode_flag == MODE_TWO) {
+			if(counter < 0) counter = 7;
+  ec:	8d 2f       	mov	r24, r29
+  ee:	9c 2f       	mov	r25, r28
+  f0:	3c c0       	rjmp	.+120    	; 0x16a <main+0xd4>
+					mode_flag = MODE_TWO;
+					leds = 0;
+					counter = -1;  					
+				} 
+				else { 
+					mode_flag = MODE_ONE;
+  f2:	70 93 01 01 	sts	0x0101, r23	; 0x800101 <__data_start+0x1>
+  f6:	60 93 00 01 	sts	0x0100, r22	; 0x800100 <__data_start>
+					leds = 0;
+  fa:	4f 2f       	mov	r20, r31
+  fc:	5e 2f       	mov	r21, r30
+				mode_flag = MODE_ONE;
+			}
+		}
+
+		if(mode_flag == MODE_ONE) {
+			if(counter > 7) counter = 0;
+  fe:	8f 2f       	mov	r24, r31
+ 100:	9e 2f       	mov	r25, r30
+ 102:	14 c0       	rjmp	.+40     	; 0x12c <main+0x96>
+					leds = 0;
+					counter = 8;  
+				} 
+				
+			}
+			else if (mode_flag == MODE_THREE) {
+ 104:	23 30       	cpi	r18, 0x03	; 3
+ 106:	31 05       	cpc	r19, r1
+ 108:	29 f4       	brne	.+10     	; 0x114 <main+0x7e>
+				//if button pressed change mode
+				//checking button is pressed code
+
+				//change mode
+				mode_flag = MODE_ONE;
+ 10a:	70 93 01 01 	sts	0x0101, r23	; 0x800101 <__data_start+0x1>
+ 10e:	60 93 00 01 	sts	0x0100, r22	; 0x800100 <__data_start>
+ 112:	07 c0       	rjmp	.+14     	; 0x122 <main+0x8c>
+			}
+		}
+
+		if(mode_flag == MODE_ONE) {
+ 114:	20 91 00 01 	lds	r18, 0x0100	; 0x800100 <__data_start>
+ 118:	30 91 01 01 	lds	r19, 0x0101	; 0x800101 <__data_start+0x1>
+ 11c:	21 30       	cpi	r18, 0x01	; 1
+ 11e:	31 05       	cpc	r19, r1
+ 120:	e1 f4       	brne	.+56     	; 0x15a <main+0xc4>
+			if(counter > 7) counter = 0;
+ 122:	88 30       	cpi	r24, 0x08	; 8
+ 124:	91 05       	cpc	r25, r1
+ 126:	14 f0       	brlt	.+4      	; 0x12c <main+0x96>
+ 128:	8f 2f       	mov	r24, r31
+ 12a:	9e 2f       	mov	r25, r30
+			SET_BIT(leds, counter++);
+ 12c:	9c 01       	movw	r18, r24
+ 12e:	2f 5f       	subi	r18, 0xFF	; 255
+ 130:	3f 4f       	sbci	r19, 0xFF	; 255
+ 132:	8b 01       	movw	r16, r22
+ 134:	02 c0       	rjmp	.+4      	; 0x13a <main+0xa4>
+ 136:	00 0f       	add	r16, r16
+ 138:	11 1f       	adc	r17, r17
+ 13a:	8a 95       	dec	r24
+ 13c:	e2 f7       	brpl	.-8      	; 0x136 <main+0xa0>
+ 13e:	40 2b       	or	r20, r16
+ 140:	51 2b       	or	r21, r17
+			PORTB = leds; 
+ 142:	45 b9       	out	0x05, r20	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 144:	1f e9       	ldi	r17, 0x9F	; 159
+ 146:	86 e8       	ldi	r24, 0x86	; 134
+ 148:	91 e0       	ldi	r25, 0x01	; 1
+ 14a:	11 50       	subi	r17, 0x01	; 1
+ 14c:	80 40       	sbci	r24, 0x00	; 0
+ 14e:	90 40       	sbci	r25, 0x00	; 0
+ 150:	e1 f7       	brne	.-8      	; 0x14a <main+0xb4>
+ 152:	00 c0       	rjmp	.+0      	; 0x154 <main+0xbe>
+ 154:	00 00       	nop
+			}
+		}
+
+		if(mode_flag == MODE_ONE) {
+			if(counter > 7) counter = 0;
+			SET_BIT(leds, counter++);
+ 156:	c9 01       	movw	r24, r18
+ 158:	b7 cf       	rjmp	.-146    	; 0xc8 <main+0x32>
+			PORTB = leds; 
+			_delay_ms(500); 
+		}
+		else if(mode_flag == MODE_TWO) {
+ 15a:	22 30       	cpi	r18, 0x02	; 2
+ 15c:	31 05       	cpc	r19, r1
+ 15e:	09 f0       	breq	.+2      	; 0x162 <main+0xcc>
+ 160:	b3 cf       	rjmp	.-154    	; 0xc8 <main+0x32>
+			if(counter < 0) counter = 7;
+ 162:	99 23       	and	r25, r25
+ 164:	14 f4       	brge	.+4      	; 0x16a <main+0xd4>
+ 166:	8d 2f       	mov	r24, r29
+ 168:	9c 2f       	mov	r25, r28
+			SET_BIT(leds, counter--);
+ 16a:	9c 01       	movw	r18, r24
+ 16c:	21 50       	subi	r18, 0x01	; 1
+ 16e:	31 09       	sbc	r19, r1
+ 170:	8b 01       	movw	r16, r22
+ 172:	02 c0       	rjmp	.+4      	; 0x178 <main+0xe2>
+ 174:	00 0f       	add	r16, r16
+ 176:	11 1f       	adc	r17, r17
+ 178:	8a 95       	dec	r24
+ 17a:	e2 f7       	brpl	.-8      	; 0x174 <main+0xde>
+ 17c:	40 2b       	or	r20, r16
+ 17e:	51 2b       	or	r21, r17
+			PORTB = leds;
+ 180:	45 b9       	out	0x05, r20	; 5
+ 182:	1f e9       	ldi	r17, 0x9F	; 159
+ 184:	86 e8       	ldi	r24, 0x86	; 134
+ 186:	91 e0       	ldi	r25, 0x01	; 1
+ 188:	11 50       	subi	r17, 0x01	; 1
+ 18a:	80 40       	sbci	r24, 0x00	; 0
+ 18c:	90 40       	sbci	r25, 0x00	; 0
+ 18e:	e1 f7       	brne	.-8      	; 0x188 <main+0xf2>
+ 190:	00 c0       	rjmp	.+0      	; 0x192 <main+0xfc>
+ 192:	00 00       	nop
+			PORTB = leds; 
+			_delay_ms(500); 
+		}
+		else if(mode_flag == MODE_TWO) {
+			if(counter < 0) counter = 7;
+			SET_BIT(leds, counter--);
+ 194:	c9 01       	movw	r24, r18
+ 196:	98 cf       	rjmp	.-208    	; 0xc8 <main+0x32>
+
+00000198 <__vector_1>:
+		}
+    } // end of while loop 
+}
+
+ISR(INT0_vect)
+{
+ 198:	1f 92       	push	r1
+ 19a:	0f 92       	push	r0
+ 19c:	0f b6       	in	r0, 0x3f	; 63
+ 19e:	0f 92       	push	r0
+ 1a0:	11 24       	eor	r1, r1
+ 1a2:	2f 93       	push	r18
+ 1a4:	8f 93       	push	r24
+ 1a6:	9f 93       	push	r25
+	//disable interrupts 
+	cli(); 
+ 1a8:	f8 94       	cli
+ 1aa:	2f e9       	ldi	r18, 0x9F	; 159
+ 1ac:	86 e8       	ldi	r24, 0x86	; 134
+ 1ae:	91 e0       	ldi	r25, 0x01	; 1
+ 1b0:	21 50       	subi	r18, 0x01	; 1
+ 1b2:	80 40       	sbci	r24, 0x00	; 0
+ 1b4:	90 40       	sbci	r25, 0x00	; 0
+ 1b6:	e1 f7       	brne	.-8      	; 0x1b0 <__vector_1+0x18>
+ 1b8:	00 c0       	rjmp	.+0      	; 0x1ba <__vector_1+0x22>
+ 1ba:	00 00       	nop
+	//set the input of the adc_pot to 8 lets output 
+
+	_delay_ms(500); 
+	mode_flag = MODE_THREE; 
+ 1bc:	83 e0       	ldi	r24, 0x03	; 3
+ 1be:	90 e0       	ldi	r25, 0x00	; 0
+ 1c0:	90 93 01 01 	sts	0x0101, r25	; 0x800101 <__data_start+0x1>
+ 1c4:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+	//enable interrupts
+	sei(); 
+ 1c8:	78 94       	sei
+ 1ca:	9f 91       	pop	r25
+ 1cc:	8f 91       	pop	r24
+ 1ce:	2f 91       	pop	r18
+ 1d0:	0f 90       	pop	r0
+ 1d2:	0f be       	out	0x3f, r0	; 63
+ 1d4:	0f 90       	pop	r0
+ 1d6:	1f 90       	pop	r1
+ 1d8:	18 95       	reti
+
+000001da <_exit>:
+ 1da:	f8 94       	cli
+
+000001dc <__stop_program>:
+ 1dc:	ff cf       	rjmp	.-2      	; 0x1dc <__stop_program>
